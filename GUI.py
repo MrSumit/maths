@@ -63,7 +63,7 @@ def _txtbox(stdscr, y, xl, wl = 20, xpndx = False):
                     i+=1
 
     else:
-        # wait for update...
+        # This part of code is not tested...
         textpad.rectangle(stdscr, y, xl, y+2, wl)
         stdscr.addstr(y+1, xl+1, '')
         i = xl+1
