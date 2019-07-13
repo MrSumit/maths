@@ -87,10 +87,7 @@ def _txtbox(stdscr, y, xl, wl = 20, xpndx = False):
                     istr+=str(chr(k))
                     stdscr.refresh()
                     i+=1
-            
-
-
     _istr.append(istr)
 
-                
+        
 wrapper(chrxp)
