@@ -37,57 +37,27 @@ def chrxp(stdscr):
             if a>l-1 and a<(l+4) and b == k:
                 break
                 
-def _txtbox(stdscr, y, xl, wl = 20, xpndx = False):
+def txtbox(stdscr, y = 0 , xl = 0, wl = 20):
     wl += xl+2
-    istr = ''
-    if not xpndx:
-        textpad.rectangle(stdscr, y, xl, y+2, wl)
-        stdscr.addstr(y+1, xl+1, '')
-        i = xl+1
-        while i < wl:
-            k = stdscr.getch()
-            if k == KEY_ENTER or k in [10, 13]:
-                break
-            elif k == KEY_BACKSPACE:
-                if i>xl+1:
-                    stdscr.addstr(y+1, i-1, ' ')
-                    stdscr.addstr(y+1, xl+1, istr[:-1])
-                    istr = istr[:-1]
-                    i-=1
-                    stdscr.refresh()
-            else:
-                if i<wl-1:
-                    stdscr.addstr(y+1, i, str(chr(k)))
-                    istr+=str(chr(k))
-                    stdscr.refresh()
-                    i+=1
-
-    else:
-        # This part of code is not tested...
-        textpad.rectangle(stdscr, y, xl, y+2, wl)
-        stdscr.addstr(y+1, xl+1, '')
-        i = xl+1
-        while True:
-            if i == wl:
-                textpad.rectangle(stdscr, y, xl, y+2, wl+i-xl)
-                stdscr.addstr(y+1, i+1, '')
-            k = stdscr.getch()
-            if k == KEY_ENTER or k in [10, 13]:
-                break
-            elif k == KEY_BACKSPACE:
-                if i>xl+1:
-                    stdscr.addstr(y+1, i-1, ' ')
-                    stdscr.addstr(y+1, xl+1, istr[:-1])
-                    istr = istr[:-1]
-                    i-=1
-                    stdscr.refresh()
-            else:
-                if i<wl-1:
-                    stdscr.addstr(y+1, i, str(chr(k)))
-                    istr+=str(chr(k))
-                    stdscr.refresh()
-                    i+=1
-    _istr.append(istr)
+    s = ''
+    textpad.rectangle(stdscr, y, xl, y+2, wl)
+    stdscr.addstr(y+1, xl+1, '')
+    cl,cr = 0,0
+    while True:
+        k = stdscr.getch()
+        if k == KEY_ENTER or k in [10,13]:break
+        elif k == KEY_UP or k ==KEY_DOWN or len(s) == (wl-2):pass
+        elif k == KEY_BACKSPACE or k == 8:
+            stdscr.addstr(y+1,xl+1," "*len(s))
+            s = s[:-1]
+            stdscr.addstr(y+1,xl+1,s)
+        elif k == KEY_LEFT or k == 27:
+            if s != "":
+                cl = len(s)-1
+        elif k == KEY_RIGHT or k == 26:pass
+        else:
+            s+=str(chr(k))
+            stdscr.addstr(y+1,xl+1,s)
 
         
 wrapper(chrxp)
