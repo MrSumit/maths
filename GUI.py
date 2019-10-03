@@ -1,7 +1,6 @@
 from curses import *
 from curses import textpad
 
-_istr = []
 
 def chrxp(stdscr):
     curs_set(0)
