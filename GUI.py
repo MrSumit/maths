@@ -41,7 +41,7 @@ def txtbox(stdscr, y = 0 , xl = 0, wl = 20):
     s = ''
     textpad.rectangle(stdscr, y, xl, y+2, wl)
     stdscr.addstr(y+1, xl+1, '')
-    cl,cr = 0,0
+    cp = 0
     while True:
         k = stdscr.getch()
         if k == KEY_ENTER or k in [10,13]:break
@@ -50,13 +50,27 @@ def txtbox(stdscr, y = 0 , xl = 0, wl = 20):
             stdscr.addstr(y+1,xl+1," "*len(s))
             s = s[:-1]
             stdscr.addstr(y+1,xl+1,s)
+            if not cp:cp-=1
         elif k == KEY_LEFT or k == 27:
-            if s != "":
-                cl = len(s)-1
-        elif k == KEY_RIGHT or k == 26:pass
+            if not cp:pass
+            else:
+                cp-=1
+                stdscr.addstr(y+1,xl+1+len(s[:cp-1]),s[cp:])
+                stdscr.addstr(y+1,xl+1,s[:cp-1])
+        elif k == KEY_RIGHT or k == 26:
+            if cp == len(s):pass
+            else:cp+=1
         else:
-            s+=str(chr(k))
-            stdscr.addstr(y+1,xl+1,s)
+            if cp == len(s):
+                s+=str(chr(k))
+                cp+=1
+                stdscr.addstr(y+1,xl+1,s)
+            else:
+                s = s[:cp-1]+str(chr(k))+s[cp:]
+                cp+=1
+                stdscr.addstr(y+1,xl+1+len(s[:cp-1])+1,s[cp:])
+                stdscr.addstr(y+1,xl+1,s[:cp-1]+str(chr(k)))
+
 
         
 wrapper(chrxp)
