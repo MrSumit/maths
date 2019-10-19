@@ -36,41 +36,48 @@ def chrxp(stdscr):
             if a>l-1 and a<(l+4) and b == k:
                 break
                 
-def txtbox(stdscr, y = 0 , xl = 0, wl = 20):
-    wl += xl+2
+def txtbox(stdscr, y=0, xl=0, wl=20):
+    wl += xl + 2
     s = ''
-    textpad.rectangle(stdscr, y, xl, y+2, wl)
-    stdscr.addstr(y+1, xl+1, '')
+    textpad.rectangle(stdscr, y, xl, y + 2, wl)
+    stdscr.addstr(y + 1, xl + 1, '')
     cp = 0
     while True:
         k = stdscr.getch()
-        if k == KEY_ENTER or k in [10,13]:break
-        elif k == KEY_UP or k ==KEY_DOWN or len(s) == (wl-2):pass
+        if k == KEY_ENTER or k in [10, 13]:
+            break
+        elif k == KEY_UP or k == KEY_DOWN or len(s) == (wl - 2):
+            pass
         elif k == KEY_BACKSPACE or k == 8:
-            stdscr.addstr(y+1,xl+1," "*len(s))
+            stdscr.addstr(y + 1, xl + 1, " " * len(s))
             s = s[:-1]
-            stdscr.addstr(y+1,xl+1,s)
-            if not cp:cp-=1
+            stdscr.addstr(y + 1, xl + 1, s)
+            if cp > 0: cp -= 1
         elif k == KEY_LEFT or k == 27:
-            if not cp:pass
+            if not cp: pass
             else:
-                cp-=1
-                stdscr.addstr(y+1,xl+1+len(s[:cp-1]),s[cp:])
-                stdscr.addstr(y+1,xl+1,s[:cp-1])
+                cp -= 1
+                stdscr.addstr(y + 1, xl + 1 + len(s[:cp]), s[cp:])
+                stdscr.addstr(y + 1, xl + 1, s[:cp])
         elif k == KEY_RIGHT or k == 26:
             if cp == len(s):pass
-            else:cp+=1
-        else:
-            if cp == len(s):
-                s+=str(chr(k))
-                cp+=1
-                stdscr.addstr(y+1,xl+1,s)
             else:
-                s = s[:cp-1]+str(chr(k))+s[cp:]
-                cp+=1
-                stdscr.addstr(y+1,xl+1+len(s[:cp-1])+1,s[cp:])
-                stdscr.addstr(y+1,xl+1,s[:cp-1]+str(chr(k)))
-
+                cp += 1
+                stdscr.addstr(y + 1, xl + 1 + len(s[:cp]), s[cp:])
+                stdscr.addstr(y + 1, xl + 1, s[:cp])
+        else:
+            if cp <= wl - 2:
+                if cp == len(s):
+                    s += str(chr(k))
+                    cp += 1
+                    stdscr.addstr(y + 1, xl + 1, s)
+                else:
+                    s = s[:cp] + str(chr(k)) + s[cp:]
+                    stdscr.addstr(y + 3, 0, s)
+                    stdscr.refresh()
+                    stdscr.addstr(y + 1, xl + 1 + len(s[:cp+1]), s[cp+1:])
+                    stdscr.addstr(y + 1, xl + 1, s[:cp+1])
+                    cp += 1
 
         
 wrapper(chrxp)
