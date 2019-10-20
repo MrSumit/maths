@@ -1,5 +1,10 @@
+#Everything here is in development.
+
+
+
 from curses import *
 from curses import textpad
+
 
 
 def chrxp(stdscr):
