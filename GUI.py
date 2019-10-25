@@ -95,7 +95,7 @@ def txtpnl(stdscr, y=0, xl=0, wl=20, HIDE_WORDS = False):
                 stdscr.addstr(y + 1, xl + 1, s[:cp])
             s = s[:cp] + s[cp + 1:]
         else:
-            if cp < wl - 2:
+            if len(s) < wl - xl - 2:
                 if cp == len(s):
                     s += str(chr(k))
                     cp += 1
