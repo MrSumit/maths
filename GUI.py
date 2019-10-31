@@ -100,7 +100,6 @@ def txtpnl(stdscr, y=10, xl=10, wl=20, HIDE_WORDS = False):
             if len(s) < wl - xl - 2:
                 if cp == len(s):
                     s += str(chr(k))
-                    cp += 1
                     if HIDE_WORDS:
                         stdscr.addstr(y + 1, xl + 1, "*"*len(s))
                     else:
@@ -113,7 +112,7 @@ def txtpnl(stdscr, y=10, xl=10, wl=20, HIDE_WORDS = False):
                     else:
                         stdscr.addstr(y + 1, xl + 1 + len(s[:cp + 1]), s[cp + 1:])
                         stdscr.addstr(y + 1, xl + 1, s[:cp + 1])
-                    cp += 1
+                cp += 1
     return s
 
 
