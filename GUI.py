@@ -41,13 +41,15 @@ def chrxp(stdscr):
             if a>l-1 and a<(l+4) and b == k:
                 break
                 
-def txtpnl(stdscr, y=0, xl=0, wl=20, HIDE_WORDS = False):
+def txtpnl(stdscr, y=10, xl=10, wl=20, HIDE_WORDS = False):
     wl += xl + 2
     s = ''
     textpad.rectangle(stdscr, y, xl, y + 2, wl)
     stdscr.addstr(y + 1, xl + 1, '')
     cp = 0
     while True:
+        textpad.rectangle(stdscr, y, xl, y + 2, wl)
+        stdscr.addstr(y + 1, xl + 1 + cp, '')
         k = stdscr.getch()
         if k == KEY_ENTER or k in [10, 13]:
             break
@@ -114,5 +116,6 @@ def txtpnl(stdscr, y=0, xl=0, wl=20, HIDE_WORDS = False):
                     cp += 1
     return s
 
+
         
-wrapper(chrxp)
+wrapper(txtpnl)
