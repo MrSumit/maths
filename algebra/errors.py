@@ -1,0 +1,1 @@
+class InvalidSign(ValueError): pass
