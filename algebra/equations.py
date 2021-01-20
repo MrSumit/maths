@@ -42,17 +42,11 @@ class Factor:
 
 
 class Term:
-    def __init__(self, **tokens: Dict[Union[Variable, Constant], Union[Constant, Variable]]):
-        self.coefficient = coefficient
-        self.variable = variable
+    def __init__(self, **tokens: Dict[Union[Variable, Constant], Union[Constant, Variable]]): pass
     #factor
+    #variables
     #coefficient
 
-    def __str__(self):
-        return ( f'({self.coefficient.const}{self.variable.name}^{self.variable.degree})' if self.variable.degree != 1 else f'({self.coefficient.const}{self.variable.name})' ) if self.variable.sign == '+' else f'({-1*self.coefficient.const}{self.variable.name}^{self.variable.degree})' if self.variable.degree != 1 else f'({-1*self.coefficient.const}{self.variable.name})'
-
-    def __repr__(self):
-        return str(self)
 
 class Expression: pass
 
